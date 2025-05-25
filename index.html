@@ -15,17 +15,22 @@
         const btn = document.querySelector("#btn");
         const container = document.querySelector(".container");
         const gridSide = 400;
+        let numberOfSquares = 0;
 
-        function waitForUserInput () {
-            return new Promise((resolve) => {
-                btn.addEventListener("click", function() {
-                    const userInput = prompt("Enter number of squares: ");
-                    if (userInput !== null) {
-                        resolve(userInput);
-                    }
-                }, { once: false});
-            });
-        }
+   
+        btn.addEventListener("click", () => {
+            clearGrid(numberOfSquares);
+            const userInput = prompt("Enter number of squares: ");
+            console.log(numberOfSquares);
+            if (userInput !== null && numberOfSquares === 0) {
+                numberOfSquares = calcGrid(userInput);
+                const side = calcSide(userInput, gridSide);
+                createGrid(numberOfSquares, side);
+                traceCursor(calcGrid(numberOfSquares));
+            } 
+            
+            numberOfSquares = 0;
+        });
 
         function calcGrid (userInput) {
             return Math.pow(userInput, 2);
@@ -44,6 +49,13 @@
                 container.appendChild(div);
             }
         }
+
+        function clearGrid (numberOfSquares) {
+            const sqr = document.querySelectorAll(".my-div");
+            for (let i = 0; i < numberOfSquares; i++) {
+                container.removeChild(sqr[i]);
+            }
+        }
  
         function traceCursor (numberOfSquares) {
             const sqr = document.querySelectorAll(".my-div");
@@ -56,17 +68,6 @@
                 })
             }
         }
-
-        async function main() {
-            const userInput = await waitForUserInput();
-            const numberOfSquares = calcGrid(userInput);
-            const side = calcSide(userInput, gridSide);
-            createGrid(numberOfSquares, side);
-            traceCursor(calcGrid(numberOfSquares));
-        }
-
-        
-        main();
 
     </script>
 </body>
