@@ -23,7 +23,7 @@
                     if (userInput !== null) {
                         resolve(userInput);
                     }
-                }, { once: true});
+                }, { once: false});
             });
         }
 
@@ -65,6 +65,7 @@
             traceCursor(calcGrid(numberOfSquares));
         }
 
+        
         main();
 
     </script>
