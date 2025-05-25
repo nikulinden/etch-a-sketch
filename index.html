@@ -19,16 +19,29 @@
 
    
         btn.addEventListener("click", () => {
+            resetGrid(numberOfSquares);            
+            let userInputValid = false;
 
-            resetGrid(numberOfSquares);
-            const userInput = prompt("Enter number of squares: ");
-            console.log(numberOfSquares);
-            if (userInput !== null) {
-                numberOfSquares = calcGrid(userInput);
-                const side = calcSide(userInput, gridSide);
-                createGrid(numberOfSquares, side);
-                traceCursor(calcGrid(numberOfSquares));
-            } 
+            while (!(userInputValid)) {
+                const userInput = prompt("Enter number of squares (between 1 and 100): ");
+
+                if (userInput === null) {
+                    alert("The input was canceled");
+                } else if (userInput.trim() == "" ) {
+                    alert("The input was empty. Try again");
+                } else if (isNaN(userInput)) {
+                    alert("Only enter numeric values. Try again");
+                } else if (userInput <= 0 || userInput > 100) {
+                    alert("You enter a value outside of a valid range (1-100). Try again.");
+                } else {
+                    numberOfSquares = calcGrid(userInput);
+                    const side = calcSide(userInput, gridSide);
+                    createGrid(numberOfSquares, side);
+                    traceCursor(calcGrid(numberOfSquares));
+                    userInputValid = true;
+                }
+            }
+
         });
 
         function resetGrid (numberOfSquares) {
