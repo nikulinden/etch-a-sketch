@@ -19,18 +19,22 @@
 
    
         btn.addEventListener("click", () => {
-            clearGrid(numberOfSquares);
+
+            resetGrid(numberOfSquares);
             const userInput = prompt("Enter number of squares: ");
             console.log(numberOfSquares);
-            if (userInput !== null && numberOfSquares === 0) {
+            if (userInput !== null) {
                 numberOfSquares = calcGrid(userInput);
                 const side = calcSide(userInput, gridSide);
                 createGrid(numberOfSquares, side);
                 traceCursor(calcGrid(numberOfSquares));
             } 
-            
-            numberOfSquares = 0;
         });
+
+        function resetGrid (numberOfSquares) {
+            clearGrid(numberOfSquares);
+            numberOfSquares = 0;
+        }
 
         function calcGrid (userInput) {
             return Math.pow(userInput, 2);
